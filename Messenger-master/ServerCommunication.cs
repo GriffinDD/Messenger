@@ -27,7 +27,7 @@ public class ServerCommunication
     {
         try
         {
-            var response = await client.GetAsync("http://kayrun.cs.rit.edu:5000/Key/" + email);
+            var response = await client.GetAsync("{server}/Key/" + email);
             response.EnsureSuccessStatusCode();
             var keyJson = await response.Content.ReadAsStringAsync();
             var f = new FileInfo(email + ".key");
@@ -60,7 +60,7 @@ public class ServerCommunication
             publicFileReader.Close();
             publicKey!.email = email;
             var content = new StringContent(JsonConvert.SerializeObject(publicKey), Encoding.UTF8, "application/json");
-            var response = await client.PutAsync("http://kayrun.cs.rit.edu:5000/Key/" + email, content);
+            var response = await client.PutAsync("{server}/Key/" + email, content);
             response.EnsureSuccessStatusCode();
 
             //we have now successfully sent key to server, store the email
@@ -103,7 +103,7 @@ public class ServerCommunication
 
             var content = new StringContent(JsonConvert.SerializeObject(messageToSend), Encoding.UTF8,
                 "application/json");
-            var response = await client.PutAsync("http://kayrun.cs.rit.edu:5000/Message/" + email, content);
+            var response = await client.PutAsync("{server}/Message/" + email, content);
             response.EnsureSuccessStatusCode();
             return "Message written";
         }
@@ -123,7 +123,7 @@ public class ServerCommunication
         try
         {
             var r = new RSA();
-            var response = await client.GetAsync("http://kayrun.cs.rit.edu:5000/Message/" + email);
+            var response = await client.GetAsync("{server}/Message/" + email);
             response.EnsureSuccessStatusCode();
             var messageJson = await response.Content.ReadAsStringAsync();
             var message = JsonConvert.DeserializeObject<Message>(messageJson);

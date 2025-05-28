@@ -15,7 +15,6 @@ public static class PrimeChecker
     /// <summary>
     /// This method checks if the provided BigInteger is a prime using the Miller-Rabin primality test repeated over
     /// the provided number of rounds(default 10).
-    /// Note: Uses the MR algorithm on the wikipedia page rather than the writeup, with variables named accordingly.
     /// </summary>
     /// <param name="value">The BigInteger prime candidate to analyze for primality.</param>
     /// <param name="k">The number of rounds to repeat the MR algorithm over, defaults to 10.</param>
